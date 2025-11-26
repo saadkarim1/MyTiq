@@ -6,6 +6,7 @@ import "swiper/css";
 // import ".././styles.css";
 // import "../index.css";
 import React from "react";
+import EventCard from "./EventCard";
 
 const Sliders = () => {
 	return (
@@ -16,11 +17,18 @@ const Sliders = () => {
 				onSlideChange={() => console.log("slide change")}
 				onSwiper={(swiper) => console.log(swiper)}
 			>
-				<SwiperSlide>Slide 1</SwiperSlide>
-				<SwiperSlide>Slide 2</SwiperSlide>
-				<SwiperSlide>Slide 3</SwiperSlide>
-				<SwiperSlide>Slide 4</SwiperSlide>
-				...
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
 			</Swiper>
 		</div>
 	);
