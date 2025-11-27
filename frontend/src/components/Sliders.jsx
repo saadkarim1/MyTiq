@@ -2,21 +2,42 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
-
-// import ".././styles.css";
-// import "../index.css";
-import React from "react";
 import EventCard from "./EventCard";
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import { useRef } from "react";
 
 const Sliders = () => {
+	const swiperRef = useRef(null);
 	return (
-		<div className='relative w-full'>
+		<div
+			className='relative w-full my-6'
+			onMouseEnter={() => swiperRef.current?.autoplay.stop()}
+			onMouseLeave={() => swiperRef.current?.autoplay.start()}
+		>
 			<Swiper
-				spaceBetween={50}
-				slidesPerView={3}
-				onSlideChange={() => console.log("slide change")}
-				onSwiper={(swiper) => console.log(swiper)}
+				onSwiper={(swiper) => (swiperRef.current = swiper)}
+				spaceBetween={30}
+				autoplay={{
+					delay: 2500,
+					disableOnInteraction: false,
+				}}
+				slidesPerView={4}
+				onMouseEnter={stop}
+				loop={true}
+				modules={[Autoplay, Pagination, Navigation]}
 			>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
+				<SwiperSlide>
+					<EventCard />
+				</SwiperSlide>
 				<SwiperSlide>
 					<EventCard />
 				</SwiperSlide>
