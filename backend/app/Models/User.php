@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Ticket;
+
 
 class User extends Authenticatable
 {
@@ -18,10 +20,26 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'user_name',
         'email',
+        'email_verified_at',
         'password',
+        'role', 
+        'is_news_letter_subscriber',
+
+
     ];
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    
 
     /**
      * The attributes that should be hidden for serialization.
