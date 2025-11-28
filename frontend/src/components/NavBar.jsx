@@ -4,21 +4,18 @@ import { Link, useLocation } from "react-router";
 const links = [
 	{ path: "/", name: "Home" },
 	{ path: "/explore", name: "Explore" },
-	{ path: "/", name: "My tickets" },
+	{ path: "/tickets", name: "My tickets" },
 ];
 const NavBar = () => {
 	const [navBar, setNavBar] = useState(true);
 	const { pathname } = useLocation();
 
 	const showNavBarBackGround = () => {
-		// if (pathname === "/") {
-		// console.log("first");
 		if (window.scrollY < 80 && pathname === "/") {
 			setNavBar(false);
 		} else {
 			setNavBar(true);
 		}
-		// }
 	};
 	window.addEventListener("scroll", showNavBarBackGround);
 
