@@ -17,7 +17,7 @@ const HeroSection = () => {
 						Your next best-night-ever is waiting
 					</p>
 				</div>
-				<div className='rounded-xl bg-white flex items-center px-4 py-2 w-[50%]'>
+				<div className='rounded-xl bg-white flex items-center px-2 py-1.5 w-[50%]'>
 					<IoSearch className='w-[10%]  text-3xl text-purple-600' />
 					<input
 						type='text'

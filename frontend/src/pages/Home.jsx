@@ -1,12 +1,14 @@
 import React from "react";
 import HeroSection from "../components/HeroSection";
-import Events from "../components/events";
+import EventsComponent from "../components/EventsComponent";
+import SectionTitle from "../components/SectionTitle";
 
 const Home = () => {
 	return (
 		<div>
 			<HeroSection />
-			<Events />
+			<SectionTitle title={"Featured Events"} />
+			<EventsComponent />
 		</div>
 	);
 };

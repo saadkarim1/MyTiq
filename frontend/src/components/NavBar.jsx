@@ -7,21 +7,27 @@ const links = [
 	{ path: "/", name: "My tickets" },
 ];
 const NavBar = () => {
-	const [navBar, setNavBar] = useState(false);
+	const [navBar, setNavBar] = useState(true);
 	const { pathname } = useLocation();
 
 	const showNavBarBackGround = () => {
-		if (window.scrollY >= 80) {
-			setNavBar(true);
-		} else {
+		// if (pathname === "/") {
+		// console.log("first");
+		if (window.scrollY < 80 && pathname === "/") {
 			setNavBar(false);
+		} else {
+			setNavBar(true);
 		}
+		// }
 	};
-	console.log(pathname);
 	window.addEventListener("scroll", showNavBarBackGround);
 
 	return (
-		<div className={`${navBar && "bg-[#06041b]"} inset-x-0 fixed top-0 z-10`}>
+		<div
+			className={`${
+				navBar ? "bg-[#06041b]" : "bg-transparent"
+			} inset-x-0 fixed top-0 z-10`}
+		>
 			<div className='w-[85%] mx-auto  py-2 flex items-center justify-between'>
 				<h1 className=' w-[33%] text-white text-[40px] font-bold'>
 					eventPlace
