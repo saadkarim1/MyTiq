@@ -7,7 +7,10 @@ import Sliders from "./Sliders";
 const HeroSection = () => {
 	return (
 		<div className='relative'>
-			<div className='heroBg relative h-screen bg-[url(src/assets/Reflect.jpeg)] bg-cover z-0'></div>
+			<div
+				className='heroBg relative h-screen  bg-cover z-0'
+				style={{ backgroundImage: `url(${"src/assets/Reflect.jpeg"})` }}
+			></div>
 			<div className='absolute w-[85%] mx-auto top-[60%] left-[50%] transform -translate-[50%] flex items-center justify-center flex-col space-y-5'>
 				<div className='text-center'>
 					<h1 className='text-white text-7xl font-semibold '>
