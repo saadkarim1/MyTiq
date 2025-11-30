@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\StoreAndUpdateEventRequest;
 use App\Models\Event;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class EventController extends Controller
         $events = Event::all();
         return response()->json(["events" => $events]);
     }
-    public function store(StoreEventRequest $request)
+    public function store(StoreAndUpdateEventRequest $request)
     {
         $validatedData = $request->validated();
         $validatedData['user_id'] = 1;
@@ -25,6 +25,15 @@ class EventController extends Controller
             'message' => 'Event created successfully',
             'event' => $event
         ], 201);
+    }
+
+    public function update(StoreAndUpdateEventRequest $request, $eventId)
+    {
+        $event = Event::findOrFail($eventId);
+
+        $event->update($request->all());
+
+        return response()->json($event, 200);
     }
 
     public function show($eventId)

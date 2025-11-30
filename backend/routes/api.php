@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketController;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +25,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('events', [EventController::class, 'store']);
-Route::get('events', [EventController::class, 'index']);
-Route::get('events/{eventId}', [EventController::class, 'show']);
-Route::delete('events/{eventId}', [EventController::class, 'destroy']);
+Route::controller(EventController::class)->group(function () {
+    Route::post('events', 'store');
+    Route::get('events',  'index');
+    Route::get('events/{eventId}', 'show');
+    Route::delete('events/{eventId}', 'destroy');
+    Route::put('events/{eventId}', 'update');
+});
+
+Route::controller(TicketController::class)->group(function () {
+    Route::post('/events/{id}/tickets', 'store');
+});
