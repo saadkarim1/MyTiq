@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('test', function () {
-    return response()->json("all good");
-});
+
+Route::post('events', [EventController::class, 'store']);
+Route::get('events', [EventController::class, 'index']);
+Route::get('events/{eventId}', [EventController::class, 'show']);
+Route::delete('events/{eventId}', [EventController::class, 'destroy']);

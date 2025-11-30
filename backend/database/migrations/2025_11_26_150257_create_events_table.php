@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->float('price');
-            $table->date('date'); 
+            $table->date('date');
             $table->string('location');
             $table->integer('capacity');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
