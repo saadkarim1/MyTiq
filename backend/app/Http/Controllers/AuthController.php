@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginAuthRequest;
+use App\Http\Requests\RegisterAuthRequest;
 use App\Models\User;
 use App\Events\UserRegistered;
 use Illuminate\Http\Request;
@@ -10,70 +12,57 @@ use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
-    // Inscription
-    public function register(Request $request)
+    public function register(RegisterAuthRequest $request)
     {
-        $validated = $request->validate([
-            'user_name' => 'required|string|max:255',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => ['required','confirmed', Password::defaults()],
-            'is_news_letter_subscriber' => 'nullable|boolean',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
             'user_name' => $validated['user_name'],
             'email'     => $validated['email'],
-            'password'  => Hash::make($validated['password']),
-            'role'      => 'user',
-            'is_news_letter_subscriber' => $validated['is_news_letter_subscriber'] ?? false,
+            'password'  => $validated['password'],
         ]);
 
         // Déclenchement de l'événement pour envoyer le mail de bienvenue
         // event(new UserRegistered($user));
 
-        // Création d'un token pour l'utilisateur
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('api-token');
 
         return response()->json([
             'user'  => $user,
-            'token' => $token
+            'token' => $token->plainTextToken
         ], 201);
     }
 
     // Connexion
-    public function login(Request $request)
+    public function login(LoginAuthRequest $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
-        $user = User::where('email', $validated['email'])->first();
+        $user = User::whereEmail( $validated['email'])->first();
 
         if (!$user || !Hash::check($validated['password'], $user->password)) {
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $token = $user->createToken('api-token')->plainTextToken;
+        $token = $user->createToken('api-token');
 
         return response()->json([
             'user' => $user,
-            'token' => $token
+            'token' => $token->plainTextToken
         ]);
     }
 
     // Déconnexion
     public function logout(Request $request)
-{
-    $user = $request->user();
+    {
+        $user = $request->user();
 
-    if ($user) {
-        // Supprime le token actuel
-        $user->currentAccessToken()->delete();
-        return response()->json(['message' => 'Logged out']);
+        if ($user) {
+            // Supprime le token actuel
+            $user->currentAccessToken()->delete();
+            return response()->json(['message' => 'Logged out']);
+        }
+
+        return response()->json(['message' => 'User not authenticated'], 401);
     }
-
-    return response()->json(['message' => 'User not authenticated'], 401);
-}
-
 }

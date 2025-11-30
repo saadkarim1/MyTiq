@@ -1,6 +1,4 @@
 import { IoSearch } from "react-icons/io5";
-import { IoCalendarOutline } from "react-icons/io5";
-import Dropdown from "../components/Dropdown";
 import EventsComponent from "../components/EventsComponent";
 
 const Events = () => {

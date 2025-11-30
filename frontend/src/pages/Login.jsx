@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import axiosInstance from "../lib/axios";
 
 const Login = () => {
+	const [dataForm, setDataForm] = useState({ email: "", password: "" });
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		const { data } = await axiosInstance.post("/api/login", dataForm);
+		console.log(data);
+	};
 	return (
 		<div className='relative'>
 			<div className='heroBg h-screen bg-[url(src/assets/Reflect.jpeg)] bg-cover z-0'></div>
-			<div className='absolute w-[40%] rounded-3xl py-14 border-2 border-purple-300/20 backdrop-blur-2xl bg-purple-900/5 mx-auto top-[50%] left-[50%] -translate-[50%] flex items-center flex-col space-y-5'>
+			<form
+				onSubmit={(e) => handleSubmit(e)}
+				className='absolute w-[40%] rounded-3xl py-14 border-2 border-purple-300/20 backdrop-blur-2xl bg-purple-900/5 mx-auto top-[50%] left-[50%] -translate-[50%] flex items-center flex-col space-y-5'
+			>
 				<h1 className='text-white/80 font-semibold text-3xl'>
 					Welcome to MyTiq
 				</h1>
@@ -14,20 +25,29 @@ const Login = () => {
 				</p>
 				<div className='w-[60%] flex flex-col space-y-4'>
 					<input
+						onChange={(e) =>
+							setDataForm({ ...dataForm, email: e.target.value })
+						}
 						type='text'
 						placeholder='email.@gmail.com'
 						className='bg-black border-2 border-purple-900/30 p-2 focus:outline-none text-white/80 placeholder:text-white/70 font-light placeholder:font-light text-[14px] rounded-lg'
 					/>
 					<input
+						onChange={(e) =>
+							setDataForm({ ...dataForm, password: e.target.value })
+						}
 						type='password'
 						placeholder='********'
 						className='bg-black border-2 border-purple-900/30 p-2 focus:outline-none text-white/80 placeholder:text-white/70 font-light placeholder:font-light text-[14px] rounded-lg'
 					/>
-					<button className='text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] cursor-pointer'>
+					<button
+						type='submit'
+						className='text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] cursor-pointer'
+					>
 						Login
 					</button>
 				</div>
-			</div>
+			</form>
 		</div>
 	);
 };
