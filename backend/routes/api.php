@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -36,3 +37,5 @@ Route::controller(EventController::class)->group(function () {
 Route::middleware('auth:sanctum')->controller(TicketController::class)->group(function () {
     Route::post('/events/{id}/tickets', 'store');
 });
+
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

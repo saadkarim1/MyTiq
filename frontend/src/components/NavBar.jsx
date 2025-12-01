@@ -1,6 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router";
+import { logout } from "../features/Auth/authApi";
+import { getLocalStorageVariable } from "../features/Auth/authSlice";
 
 const links = [
 	{ path: "/", name: "Home" },
@@ -10,8 +12,19 @@ const links = [
 ];
 const NavBar = () => {
 	const { pathname } = useLocation();
-	const { user, status } = useSelector((state) => state.auth);
-	console.log(user, status);
+	const dispatch = useDispatch();
+	const { isLoggedIn } = useSelector((state) => state.auth);
+	const [token, setToken] = useState(null);
+
+	useEffect(() => {
+		setToken(localStorage.getItem("api_token"));
+	}, [isLoggedIn]);
+
+	const handleLogout = () => {
+		dispatch(logout(token));
+		setToken(localStorage.getItem("api_token"));
+	};
+
 	return (
 		<div className={`bg-[#06041b] inset-x-0 sticky top-0 z-10`}>
 			<div className='w-[85%] mx-auto  py-2 flex items-center justify-between'>
@@ -29,8 +42,11 @@ const NavBar = () => {
 					))}
 				</ul>
 				<div className='w-[33%] flex items-center justify-end text-white space-x-3'>
-					{user.user_name ? (
-						<button className='border-2 border-red-500 bg-red-500 rounded-lg py-2 px-3 cursor-pointer'>
+					{token ? (
+						<button
+							onClick={handleLogout}
+							className='border-2 border-red-500 bg-red-500 rounded-lg py-2 px-3 cursor-pointer'
+						>
 							Deconnexion
 						</button>
 					) : (
