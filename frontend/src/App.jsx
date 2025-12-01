@@ -7,8 +7,10 @@ import Register from "./pages/Register";
 import Events from "./pages/Events";
 import EventDetails from "./pages/EventDetails";
 import MyTickets from "./pages/MyTickets";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
+	
 	return (
 		<>
 			<Routes>
@@ -19,6 +21,7 @@ function App() {
 					<Route path='/explore' element={<Events />} />
 					<Route path={"/events/:id"} element={<EventDetails />} />
 					<Route path={"/tickets"} element={<MyTickets />} />
+					<Route path={"/dashboard"} element={<Dashboard />} />
 				</Route>
 			</Routes>
 			{/* <Home /> */}

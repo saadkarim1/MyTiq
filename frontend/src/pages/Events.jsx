@@ -3,7 +3,7 @@ import EventsComponent from "../components/EventsComponent";
 
 const Events = () => {
 	return (
-		<div className=' mx-auto pt-30 flex flex-col items-center space-y-10'>
+		<div className=' mx-auto pt-10 flex flex-col items-center space-y-10'>
 			<div className='w-[40%] flex flex-col space-y-4'>
 				<div className='rounded-xl bg-white border-2 flex items-center px-2 py-1.5'>
 					<IoSearch className='w-[10%]  text-3xl text-purple-600' />

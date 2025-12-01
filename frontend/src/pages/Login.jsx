@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import axiosInstance from "../lib/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../features/Auth/authApi";
 
 const Login = () => {
 	const [dataForm, setDataForm] = useState({ email: "", password: "" });
+	const { status } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		const { data } = await axiosInstance.post("/api/login", dataForm);
-		console.log(data);
+		if (!dataForm.email || !dataForm.password) return;
+		dispatch(login(dataForm));
 	};
 	return (
 		<div className='relative'>
@@ -42,7 +47,10 @@ const Login = () => {
 					/>
 					<button
 						type='submit'
-						className='text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] cursor-pointer'
+						disabled={status == "laoding" ? true : false}
+						className={`text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] ${
+							status == "laoding" ? "cursor-not-allowed" : "cursor-pointer"
+						} active:scale-95 transition-transform duration-300 ease-in-out`}
 					>
 						Login
 					</button>

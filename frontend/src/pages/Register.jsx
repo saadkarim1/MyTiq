@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa6";
-import axiosInstance from "../lib/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { register } from "../features/Auth/authApi";
 
 const Register = () => {
+	const dispatch = useDispatch();
+	const { status } = useSelector((state) => state.auth);
 	const [checked, setChecked] = useState(false);
 	const [dataForm, setDataForm] = useState({
 		user_name: "",
@@ -10,12 +13,14 @@ const Register = () => {
 		password: "",
 		password_confirmation: "",
 	});
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		dataForm.password_confirmation = dataForm.password;
-		const { data } = await axiosInstance.post("/api/register", dataForm);
-		console.log(data);
+		if (!dataForm.email || !dataForm.password || !dataForm.user_name) return;
+		dispatch(register(dataForm));
 	};
+
 	return (
 		<div className='relative'>
 			<div className='heroBg h-screen bg-[url(src/assets/Reflect.jpeg)] bg-cover z-0'></div>
@@ -72,7 +77,10 @@ const Register = () => {
 					</div>
 					<button
 						type='submit'
-						className='text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] cursor-pointer'
+						disabled={status == "laoding" ? true : false}
+						className={`text-white rounded-lg py-2 font-medium bg-linear-[-150deg,#7159a7_60%,#cccbe2_90%] ${
+							status == "laoding" ? "cursor-not-allowed" : "cursor-pointer"
+						} active:scale-95 transition-transform duration-300 ease-in-out`}
 					>
 						Register
 					</button>
