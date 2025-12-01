@@ -23,3 +23,12 @@ export const deleteEvent = createAsyncThunk("event/delete", async (payload) => {
 	}
 	return undefined;
 });
+
+export const editEvent = createAsyncThunk("event/edit", async (payload) => {
+	const res = await axiosInstance.put(`/api/events/${payload.eventId}`);
+
+	if (res.status === 200) {
+		return res.data;
+	}
+	return undefined;
+});
