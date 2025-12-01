@@ -21,12 +21,12 @@ export const register = createAsyncThunk("auth/register", async (payload) => {
 	} catch (error) {}
 });
 
-export const logout = createAsyncThunk("auth/logout", async (pyaload) => {
+export const logout = createAsyncThunk("auth/logout", async (payload) => {
 	try {
 		// console.log("first");
 		const res = await axiosInstance.get("/api/logout", {
 			headers: {
-				Authorization: `Bearer ${pyaload}`,
+				Authorization: `Bearer ${payload}`,
 			},
 		});
 		if (res.status == 200) {

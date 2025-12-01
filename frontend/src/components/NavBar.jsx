@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router";
 import { logout } from "../features/Auth/authApi";
-import { getLocalStorageVariable } from "../features/Auth/authSlice";
+import { getTokenFromLocalstorage } from "../features/Auth/authSlice";
 
 const links = [
 	{ path: "/", name: "Home" },
@@ -13,16 +13,17 @@ const links = [
 const NavBar = () => {
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
-	const { isLoggedIn } = useSelector((state) => state.auth);
-	const [token, setToken] = useState(null);
+	const { isLoggedIn, token } = useSelector((state) => state.auth);
+	// const [token, setToken] = useState(null);
 
 	useEffect(() => {
-		setToken(localStorage.getItem("api_token"));
+		// setToken(localStorage.getItem("api_token"));
+		dispatch(getTokenFromLocalstorage());
 	}, [isLoggedIn]);
 
 	const handleLogout = () => {
 		dispatch(logout(token));
-		setToken(localStorage.getItem("api_token"));
+		// setToken(localStorage.getItem("api_token"));
 	};
 
 	return (

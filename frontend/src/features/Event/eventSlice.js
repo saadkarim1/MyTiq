@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllEvents } from "./eventApi";
+import { deleteEvent, getAllEvents } from "./eventApi";
 
 const initialState = {
 	events: [],
@@ -16,8 +16,12 @@ export const eventSlice = createSlice({
 				state.status = "secceded";
 				state.events = payload;
 			})
-			.addCase(getAllEvents.pending, (state, { payload }) => {
+			.addCase(getAllEvents.pending, (state) => {
 				state.status = "loadig";
+			})
+
+			.addCase(deleteEvent.fulfilled, (state, { payload }) => {
+				state.events = state.events.filter((event) => event.id != payload);
 			});
 	},
 });

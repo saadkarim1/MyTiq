@@ -10,7 +10,7 @@ const EventsComponent = () => {
 	return (
 		<div className='w-[85%] mx-auto flex flex-col items-center space-y-6'>
 			<div className='w-full grid grid-cols-4  gap-4'>
-				{events.map((item, index) => (
+				{events?.map((item, index) => (
 					<EventCard key={index} />
 				))}
 			</div>

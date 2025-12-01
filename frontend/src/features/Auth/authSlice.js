@@ -6,11 +6,16 @@ const initialState = {
 	status: "idle", // "idle" | "loading" | "secceded" | "failed"
 	error: null,
 	isLoggedIn: false,
+	token: null,
 };
 export const authSlice = createSlice({
 	name: "auth",
 	initialState,
-	reducers: {},
+	reducers: {
+		getTokenFromLocalstorage: (state) => {
+			state.token = localStorage.getItem("api_token");
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(login.fulfilled, (state, { payload }) => {
@@ -18,10 +23,10 @@ export const authSlice = createSlice({
 				state.isLoggedIn = true;
 				state.status = payload.user;
 			})
-			.addCase(login.pending, (state, { payload }) => {
+			.addCase(login.pending, (state) => {
 				state.status = "laoding";
 			})
-			.addCase(login.rejected, (state, { payload }) => {
+			.addCase(login.rejected, (state) => {
 				state.status = "failed";
 			})
 
@@ -42,5 +47,5 @@ export const authSlice = createSlice({
 	},
 });
 
-export const { getLocalStorageVariable } = authSlice.actions;
+export const { getTokenFromLocalstorage } = authSlice.actions;
 export const authReducer = authSlice.reducer;

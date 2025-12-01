@@ -9,3 +9,17 @@ export const getAllEvents = createAsyncThunk("event/getAllEvents", async () => {
 		console.log(error);
 	}
 });
+
+export const deleteEvent = createAsyncThunk("event/delete", async (payload) => {
+	const res = await axiosInstance.delete(`/api/events/${payload.eventId}`, {
+		headers: {
+			Authorization: `Bearer ${payload.token}`,
+		},
+	});
+
+	if (res.status === 200) {
+		console.log("tmshat");
+		return payload.eventId;
+	}
+	return undefined;
+});
