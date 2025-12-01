@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->float('price');
             $table->string('location');
-            $table->string('seat');
              $table->date('date'); 
             $table->timestamps();
         });

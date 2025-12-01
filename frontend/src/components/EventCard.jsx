@@ -4,7 +4,7 @@ import { IoLocationSharp } from "react-icons/io5";
 
 const EventCard = () => {
 	return (
-		<div className=' rounded-3xl bg-white p-3 space-y-3 hover:shadow-[0_0px_14px_rgba(0,0,0,0.25)]  transition-shadow duration-300 ease-in-out'>
+		<div className='border border-slate-200 rounded-3xl bg-white p-3 space-y-3 hover:shadow-[0_0px_14px_rgba(0,0,0,0.25)]  transition-shadow duration-300 ease-in-out'>
 			<div className='block h-40 object-cover '>
 				<img
 					src='src/assets/event1.jpeg'

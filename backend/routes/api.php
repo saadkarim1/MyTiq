@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketController;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +18,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::controller(EventController::class)->group(function () {
+    Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+        Route::post('events', 'store');
+        Route::delete('events/{eventId}', 'destroy');
+        Route::put('events/{eventId}', 'update');
+    });
+    Route::get('events/{eventId}', 'show');
+    Route::get('events',  'index');
 });
+
+
+
+Route::middleware('auth:sanctum')->controller(TicketController::class)->group(function () {
+    Route::post('/events/{id}/tickets', 'store');
+});
+
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');

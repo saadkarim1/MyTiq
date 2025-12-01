@@ -2,14 +2,16 @@ import React from "react";
 import EventCard from "./EventCard";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router";
+import { useSelector } from "react-redux";
 
-const Events = () => {
+const EventsComponent = () => {
+	const { events, status } = useSelector((state) => state.event);
+
 	return (
-		<div className='w-[85%] mx-auto py-25 flex flex-col items-center'>
-			<h1 className='text-center font-bold text-5xl'>Featured Events</h1>
-			<div className='w-full grid grid-cols-4 my-10 gap-4'>
-				{[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-					<EventCard />
+		<div className='w-[85%] mx-auto flex flex-col items-center space-y-6'>
+			<div className='w-full grid grid-cols-4  gap-4'>
+				{events.map((item, index) => (
+					<EventCard key={index} />
 				))}
 			</div>
 			<Link
@@ -23,4 +25,4 @@ const Events = () => {
 	);
 };
 
-export default Events;
+export default EventsComponent;
