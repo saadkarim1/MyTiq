@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { useDispatch } from "react-redux";
+import { editEvent } from "../features/Event/eventApi";
 
-const EditPopup = ({ event, setShowEditPopup }) => {
+const EditPopup = ({ event, setShowEditPopup, token }) => {
+	const dispatch = useDispatch();
 	const [dataForm, setDataForm] = useState({
 		title: event.title,
 		capacity: event.capacity,
 		price: event.price,
 		location: event.location,
+		date: event.date,
 	});
 	const handleOnChange = (e) => {
 		setDataForm({ ...dataForm, [e.target.name]: e.target.value });
@@ -15,12 +19,12 @@ const EditPopup = ({ event, setShowEditPopup }) => {
 	const handleEdit = (e) => {
 		e.preventDefault();
 		console.log(dataForm);
+		dispatch(editEvent({ eventId: event.id, token: token, data: dataForm }));
 	};
 
-	console.log(event);
 	return (
-		<div className='fixed inset-0 flex items-center justify-center  bg-black/50 z-50'>
-			<div className='bg-white w-[35%] p-6 rounded-xl'>
+		<div className='fixed inset-0 flex items-center justify-center bg-black/50 z-50'>
+			<div className='bg-white w-[35%] p-6 rounded-xl max-h-[80vh] overflow-scroll'>
 				<div className=' w-full flex items-center justify-end text-2xl mb-2 text-slate-600'>
 					<IoClose
 						onClick={() => setShowEditPopup(false)}
@@ -125,7 +129,7 @@ const EditPopup = ({ event, setShowEditPopup }) => {
 					</div>
 					<button
 						type='submit'
-						className='bg-purple-600 text-white p-2 rounded-lg mt-1 cursor-pointer'
+						className='bg-purple-600 text-white p-2 rounded-lg mt-1 cursor-pointer '
 					>
 						Edit
 					</button>

@@ -1,16 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteEvent } from "../features/Event/eventApi";
+import { useSelector } from "react-redux";
 import DashboardEventCard from "../components/DashboardEventCard";
 
 const Dashboard = () => {
-	const dispatch = useDispatch();
 	const { events } = useSelector((state) => state.event);
-	const { token } = useSelector((state) => state.auth);
-
-	const handleDeleteEvent = (eventId) => {
-		dispatch(deleteEvent({ eventId: eventId, token: token }));
-	};
 
 	return (
 		<>
@@ -24,10 +17,7 @@ const Dashboard = () => {
 						<div>Actions</div>
 					</div>
 					{events?.map((event) => (
-						<DashboardEventCard
-							event={event}
-							handleDeleteEvent={handleDeleteEvent}
-						/>
+						<DashboardEventCard key={event.id} event={event} />
 					))}
 				</div>
 			</div>

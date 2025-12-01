@@ -25,7 +25,16 @@ export const deleteEvent = createAsyncThunk("event/delete", async (payload) => {
 });
 
 export const editEvent = createAsyncThunk("event/edit", async (payload) => {
-	const res = await axiosInstance.put(`/api/events/${payload.eventId}`);
+	console.log(payload);
+	const res = await axiosInstance.put(
+		`/api/events/${payload.eventId}`,
+		payload.data,
+		{
+			headers: {
+				Authorization: `Bearer ${payload.token}`,
+			},
+		}
+	);
 
 	if (res.status === 200) {
 		return res.data;

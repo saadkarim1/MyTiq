@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import { MdDelete, MdModeEdit } from "react-icons/md";
 import EditPopup from "./EditPopup";
+import { deleteEvent } from "../features/Event/eventApi";
+import { useDispatch, useSelector } from "react-redux";
 
-const DashboardEventCard = ({ event, handleDeleteEvent }) => {
+const DashboardEventCard = ({ event }) => {
+	const dispatch = useDispatch();
 	const [showEditPopup, setShowEditPopup] = useState(false);
+	const { token } = useSelector((state) => state.auth);
+
+	const handleDeleteEvent = () => {
+		dispatch(deleteEvent({ eventId: event.id, token: token }));
+	};
 	return (
 		<div
 			key={event.id}
@@ -29,14 +37,18 @@ const DashboardEventCard = ({ event, handleDeleteEvent }) => {
 					<MdModeEdit />
 				</span>
 				<span
-					onClick={() => handleDeleteEvent(event.id)}
+					onClick={handleDeleteEvent}
 					className='text-red-600 p-1.5 text-2xl border-2 cursor-pointer border-red-500 bg-red-100 rounded-lg'
 				>
 					<MdDelete />
 				</span>
 			</div>
 			{showEditPopup && (
-				<EditPopup event={event} setShowEditPopup={setShowEditPopup} />
+				<EditPopup
+					event={event}
+					token={token}
+					setShowEditPopup={setShowEditPopup}
+				/>
 			)}
 		</div>
 	);

@@ -25,14 +25,13 @@ export const eventSlice = createSlice({
 			})
 
 			.addCase(editEvent.fulfilled, (state, { payload }) => {
-				state.events = state.events.map((event) => {
-					if (event.id === payload.id) {
-						event.title = payload.title;
-						event.capacity = payload.capacity;
-						event.location = payload.location;
-						event.price = payload.price;
-					}
-				});
+				const event = state.events.find((event) => event.id === payload.id);
+				if (event) {
+					event.title = payload.title;
+					event.capacity = payload.capacity;
+					event.location = payload.location;
+					event.price = payload.price;
+				}
 			});
 	},
 });
