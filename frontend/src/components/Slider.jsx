@@ -32,7 +32,7 @@ const Slider = () => {
 				>
 					{events?.map((event) => (
 						<SwiperSlide>
-							<EventCard />
+							<EventCard event={event}/>
 						</SwiperSlide>
 					))}
 				</Swiper>

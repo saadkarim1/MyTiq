@@ -21,6 +21,7 @@ class AuthController extends Controller
                 'user_name' => $validated['user_name'],
                 'email'     => $validated['email'],
                 'password'  => $validated['password'],
+                "is_news_letter_subscriber" => false
             ]);
             $token = $user->createToken('api-token');
             return response()->json([

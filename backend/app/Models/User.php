@@ -26,8 +26,6 @@ class User extends Authenticatable
         'password',
         'role', 
         'is_news_letter_subscriber',
-
-
     ];
     public function tickets()
     {
