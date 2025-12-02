@@ -1,8 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addEvent, deleteEvent, editEvent, getAllEvents } from "./eventApi";
+import {
+	addEvent,
+	deleteEvent,
+	editEvent,
+	getAllEvents,
+	showEvent,
+} from "./eventApi";
 
 const initialState = {
 	events: [],
+	event: {},
 	status: "idle",
 	error: null,
 };
@@ -40,6 +47,10 @@ export const eventSlice = createSlice({
 				} else {
 					console.log("makiyn walo");
 				}
+			})
+
+			.addCase(showEvent.fulfilled, (state, { payload }) => {
+				state.event = payload;
 			});
 	},
 });

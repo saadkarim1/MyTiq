@@ -61,3 +61,12 @@ export const editEvent = createAsyncThunk("event/edit", async (payload) => {
 		console.log(error);
 	}
 });
+
+export const showEvent = createAsyncThunk("event/show", async (payload) => {
+	try {
+		const { data } = await axiosInstance.get(`/api/events/${payload}`);
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+});

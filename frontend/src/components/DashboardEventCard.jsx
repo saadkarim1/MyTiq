@@ -3,6 +3,7 @@ import { MdDelete, MdModeEdit } from "react-icons/md";
 import EditPopup from "./EditPopup";
 import { deleteEvent } from "../features/Event/eventApi";
 import { useDispatch, useSelector } from "react-redux";
+import { BiSolidShow } from "react-icons/bi";
 
 const DashboardEventCard = ({ event }) => {
 	const dispatch = useDispatch();
@@ -29,9 +30,17 @@ const DashboardEventCard = ({ event }) => {
 			</div>
 			<div className='flex items-center w-[25%] justify-center space-x-2'>
 				<span
+					// onClick={() => {
+					// 	setShowEditPopup(true);
+					// }}
+					className='text-sky-600 p-1.5 text-2xl border-2 cursor-pointer border-sky-500 bg-sky-100 rounded-lg'
+				>
+					
+					<BiSolidShow />
+				</span>
+				<span
 					onClick={() => {
 						setShowEditPopup(true);
-						// setEvent(event);
 					}}
 					className='text-sky-600 p-1.5 text-2xl border-2 cursor-pointer border-sky-500 bg-sky-100 rounded-lg'
 				>

@@ -14,13 +14,13 @@ const EventsComponent = () => {
 					<EventCard key={event.id} event={event} />
 				))}
 			</div>
-			<Link
+			{/* <Link
 				to={"explore"}
 				className='flex items-center space-x-2 rounded-lg text-purple-700 border-2 border-purple-700 hover:text-white hover:bg-purple-700 transition-colors duration-300 ease-in-out px-3 py-2 cursor-pointer font-medium'
 			>
 				<span>SEE MORE EVENTS</span>
 				<FaArrowRightLong />
-			</Link>
+			</Link> */}
 		</div>
 	);
 };

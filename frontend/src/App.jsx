@@ -10,7 +10,6 @@ import MyTickets from "./pages/MyTickets";
 import Dashboard from "./pages/Dashboard";
 
 function App() {
-	
 	return (
 		<>
 			<Routes>
