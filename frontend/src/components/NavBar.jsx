@@ -14,7 +14,6 @@ const NavBar = () => {
 	const { pathname } = useLocation();
 	const dispatch = useDispatch();
 	const { isLoggedIn, token } = useSelector((state) => state.auth);
-	// const [token, setToken] = useState(null);
 
 	useEffect(() => {
 		// setToken(localStorage.getItem("api_token"));
@@ -36,7 +35,7 @@ const NavBar = () => {
 					{links.map((item) => (
 						<li
 							key={item.name}
-							className={`${pathname === item.path && "text-purple-700  "}`}
+							className={`${pathname === item.path && "text-purple-700"}`}
 						>
 							<Link to={item.path}>{item.name}</Link>
 						</li>

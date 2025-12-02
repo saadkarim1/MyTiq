@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Events\UserRegistered;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -67,5 +68,9 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => 'User not authenticated'], 401);
+    }
+
+    public function getAuthencatedUser() {
+        return response()->json(Auth::user(),200);
     }
 }

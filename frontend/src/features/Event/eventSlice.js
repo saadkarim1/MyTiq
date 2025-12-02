@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteEvent, editEvent, getAllEvents } from "./eventApi";
+import { addEvent, deleteEvent, editEvent, getAllEvents } from "./eventApi";
 
 const initialState = {
 	events: [],
@@ -31,6 +31,14 @@ export const eventSlice = createSlice({
 					event.capacity = payload.capacity;
 					event.location = payload.location;
 					event.price = payload.price;
+				}
+			})
+
+			.addCase(addEvent.fulfilled, (state, { payload }) => {
+				if (payload) {
+					state.events.push(payload);
+				} else {
+					console.log("makiyn walo");
 				}
 			});
 	},

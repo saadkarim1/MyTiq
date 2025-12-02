@@ -12,6 +12,7 @@ const DashboardEventCard = ({ event }) => {
 	const handleDeleteEvent = () => {
 		dispatch(deleteEvent({ eventId: event.id, token: token }));
 	};
+	
 	return (
 		<div
 			key={event.id}

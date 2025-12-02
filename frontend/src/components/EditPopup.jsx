@@ -20,6 +20,7 @@ const EditPopup = ({ event, setShowEditPopup, token }) => {
 		e.preventDefault();
 		console.log(dataForm);
 		dispatch(editEvent({ eventId: event.id, token: token, data: dataForm }));
+		setShowEditPopup(false);
 	};
 
 	return (
