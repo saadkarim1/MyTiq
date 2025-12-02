@@ -23,6 +23,7 @@ const Dashboard = () => {
 				</div>
 				<div className='space-y-4 text-lg'>
 					<div className='flex items-center justify-around font-semibold text-lg text-purple-800'>
+						<div>Image</div>
 						<div>Title</div>
 						<div>Location</div>
 						<div>Date</div>
@@ -32,7 +33,9 @@ const Dashboard = () => {
 						<DashboardEventCard key={event.id} event={event} />
 					))}
 				</div>
-				{showAddEventPopup && <AddEventForm setShowAddEventPopup={setShowAddEventPopup} />}
+				{showAddEventPopup && (
+					<AddEventForm setShowAddEventPopup={setShowAddEventPopup} />
+				)}
 			</div>
 		</>
 	);

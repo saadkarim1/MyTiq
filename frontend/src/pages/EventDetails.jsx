@@ -1,21 +1,27 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { IoArrowBack, IoLocationSharp } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { showEvent } from "../features/Event/eventApi";
 import { FaRegCalendarMinus } from "react-icons/fa";
 import { MdEventSeat } from "react-icons/md";
 import { BiSolidDollarCircle } from "react-icons/bi";
+import { buyticket } from "../features/Ticket/ticketApi";
 
 const EventDetails = () => {
 	const dispatch = useDispatch();
 	let navigate = useNavigate();
 	const { event } = useSelector((state) => state.event);
+	const { token } = useSelector((state) => state.auth);
 	let { id } = useParams();
 	console.log(event);
 	useEffect(() => {
 		dispatch(showEvent(id));
 	}, [id]);
+
+	const handleBuyTicket = () => {
+		dispatch(buyticket({ eventId: id, token: token }));
+	};
 	return (
 		<div className='pt-20  w-[85%] mx-auto  '>
 			<div className='rounded-xl text-3xl w-fit h-fit p-3 cursor-pointer hover:bg-[#d3d3d3]'>
@@ -59,7 +65,10 @@ const EventDetails = () => {
 							</div>
 						</div>
 					</div>
-					<button className='w-full rounded-full bg-purple-600 text-white py-2 font-medium cursor-pointer'>
+					<button
+						onClick={handleBuyTicket}
+						className='w-full rounded-full bg-purple-600 text-white py-2 font-medium cursor-pointer'
+					>
 						buy ticket
 					</button>
 				</div>

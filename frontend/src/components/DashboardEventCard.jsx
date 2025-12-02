@@ -8,17 +8,21 @@ import { BiSolidShow } from "react-icons/bi";
 const DashboardEventCard = ({ event }) => {
 	const dispatch = useDispatch();
 	const [showEditPopup, setShowEditPopup] = useState(false);
+	const [showDetails, setShowDetails] = useState(false);
 	const { token } = useSelector((state) => state.auth);
 
 	const handleDeleteEvent = () => {
 		dispatch(deleteEvent({ eventId: event.id, token: token }));
 	};
-	
+
 	return (
 		<div
 			key={event.id}
 			className='rounded-xl border-2 bg-white border-purple-500 w-full py-2 flex items-center justify-around'
 		>
+			<div className=' w-[25%] flex items-center justify-center'>
+				<img src="src/assets/event1.jpeg" alt="" className="h-20" />
+			</div>
 			<div className=' w-[25%] flex items-center justify-center'>
 				{event.title}
 			</div>
@@ -35,14 +39,13 @@ const DashboardEventCard = ({ event }) => {
 					// }}
 					className='text-sky-600 p-1.5 text-2xl border-2 cursor-pointer border-sky-500 bg-sky-100 rounded-lg'
 				>
-					
 					<BiSolidShow />
 				</span>
 				<span
 					onClick={() => {
 						setShowEditPopup(true);
 					}}
-					className='text-sky-600 p-1.5 text-2xl border-2 cursor-pointer border-sky-500 bg-sky-100 rounded-lg'
+					className='text-yellow-400 p-1.5 text-2xl border-2 cursor-pointer border-yellow-400 bg-yellow-50 rounded-lg'
 				>
 					<MdModeEdit />
 				</span>
